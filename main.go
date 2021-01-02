@@ -4,7 +4,6 @@ import (
     "encoding/json"
     "flag"
     "fmt"
-    "os"
     "syscall"
 )
 
@@ -27,7 +26,19 @@ type filesystemStats struct {
 
 func main() {
     parseCommandLineFlags()
-    fs := getFilesystemStats(ERROR_IF_UNDER_PERCENT)
+    fs := getFilesystemStats()
+
+    if ERROR_IF_UNDER_GB > 0 && fs.Free < ERROR_IF_UNDER_GB {
+        fs.Passed = false
+        fs.Status = fmt.Sprintf("[FAIL] Free disk space under %.1fGB", ERROR_IF_UNDER_GB)
+    }else if ERROR_IF_UNDER_GB == 0 && fs.Percent < ERROR_IF_UNDER_PERCENT {
+        fs.Passed = false
+        fs.Status = fmt.Sprintf("[FAIL] Free disk space under %.1f%%", ERROR_IF_UNDER_PERCENT)
+    }else {
+        fs.Passed = true
+        fs.Status = "[PASS] Disk OK"
+    }
+
     displayOutput(fs)
     if fs.Passed == false {
         syscall.Exit(2)
@@ -46,33 +57,6 @@ func parseCommandLineFlags() {
     }
 }
 
-func getFilesystemStats(errorIfUnderPercent float64) (output filesystemStats) {
-    // this only works on linux / mac
-    syscallResult := syscall.Statfs_t{}
-    err := syscall.Statfs("/", &syscallResult)
-    if err != nil {
-        fmt.Println("Unable to get Filesystem data", err)
-        syscall.Exit(1)
-    }
-    output.Total = float64(syscallResult.Blocks * uint64(syscallResult.Bsize) / GB)
-    output.Free = float64(syscallResult.Bavail * uint64(syscallResult.Bsize) / GB)
-    output.Percent = output.Free / output.Total * 100
-    //output.Filesystem = convertToString(syscallResult.Fstypename)
-    output.Hostname, _ = os.Hostname()
-
-    if ERROR_IF_UNDER_GB > 0 && output.Free < ERROR_IF_UNDER_GB {
-        output.Passed = false
-		output.Status = fmt.Sprintf("[FAIL] Free disk space under %.1fGB", ERROR_IF_UNDER_GB)
-	}else if ERROR_IF_UNDER_GB == 0 && output.Percent < errorIfUnderPercent {
-        output.Passed = false
-        output.Status = fmt.Sprintf("[FAIL] Free disk space under %.1f%%", errorIfUnderPercent)
-    }else {
-        output.Passed = true
-        output.Status = "[PASS] Disk OK"
-    }
-    return
-}
-
 func displayOutput(fs filesystemStats) {
     if JSON_OUTPUT {
         jsonBytes, err := json.Marshal(fs)
@@ -81,7 +65,7 @@ func displayOutput(fs filesystemStats) {
         }
         fmt.Println(string(jsonBytes))
     } else {
-        fmt.Println("/ on", fs.Hostname)
+        fmt.Println(DISK_PATH, "on", fs.Hostname)
         fmt.Println(" Free:   ", fs.Free, "GB /", fs.Total, "GB")
         fmt.Printf(" Percent: %.2f%%\n", fs.Percent)
         fmt.Println(fs.Status)
@@ -97,3 +81,4 @@ func convertToString(input [16]int8) (output string) {
     }
     return
 }
+

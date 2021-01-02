@@ -11,16 +11,14 @@ a simple command line tool that checks the root of the system to see if it has 1
 
 ## Options
 
-`checkfreespace -help` gets you the available options and version
+ `-help` gets you the available options and version
 
-`checkfreespace -gb 1` sets the pass rate if the system has at least 1GB of free space
+ `-gb 1.5` sets the pass rate if the system has at least 1.5GB of free space
 
-`checkfreespace -percent 2` sets the pass rate to 2% free (default is 10%)
+ `-percent 2.5` sets the pass rate to 2.5% free *(default is 10%)*
 
-`checkfreespace -json` converts output to json format
-```
-{"Filesystem":"","TotalGb":227,"FreeGb":149,"FreePercentage":65.63876651982379,"Hostname":"docker","Status":"[PASS] Disk OK","Passed":true}
-```
+ `-json` converts output to json format:
+`{"Filesystem":"","TotalGb":227,"FreeGb":149,"FreePercentage":65.63876651982379,"Hostname":"docker","Status":"[PASS] Disk OK","Passed":true}`
 
 ## Installation
 
