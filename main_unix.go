@@ -3,11 +3,12 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"syscall"
 )
 
-const DISK_PATH="/"
+const DISK_PATH = "/"
 
 func getFilesystemStats() (output filesystemStats) {
 
