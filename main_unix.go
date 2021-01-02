@@ -22,7 +22,7 @@ func getFilesystemStats() (output filesystemStats) {
 	output.Total = float64(syscallResult.Blocks * uint64(syscallResult.Bsize) / GB)
 	output.Free = float64(syscallResult.Bavail * uint64(syscallResult.Bsize) / GB)
 	output.Percent = output.Free / output.Total * 100
-	output.Filesystem = convertToString(syscallResult.Fstypename)
+	output.Filesystem = "" //convertToString(syscallResult.Fstypename) // mac can do this
 	output.Hostname, _ = os.Hostname()
 
 	return
