@@ -32,17 +32,23 @@ wget https://github.com/szazeski/checkfreespace/releases/download/v0.1/checkfree
 wget https://github.com/szazeski/checkfreespace/releases/download/v0.1/checkfreespace-linux-32 && chmod +x checkfreespace-linux-32 && sudo mv checkfreespace-linux-32 /usr/bin/checkfreespace 
 ```
 
-### Linux ARM
+### Linux ARM / ARM64
 ```
 wget https://github.com/szazeski/checkfreespace/releases/download/v0.1/checkfreespace-linux-arm && chmod +x checkfreespace-linux-arm && sudo mv checkfreespace-linux-arm /usr/bin/checkfreespace 
 ```
 
-### Mac 64-bit
+### Mac Intel 64-bit
+(the app isn't signed yet, so run the app in finder to accept the Gatekeeper dialog by right clicking on it and selecting open)
 ```
 wget https://github.com/szazeski/checkfreespace/releases/download/v0.1/checkfreespace-mac && chmod +x checkfreespace-mac && sudo mv checkfreespace-mac /usr/bin/checkfreespace 
 ```
 
-# Syscall Issues
-- Windows doesn't have `syscall.Statfs`
+### Mac ARM
+(currently facing build issues)
 
-- Mac has `syscall.Statfs_t.Fstypename` but linux and windows doesn't. It returns the partition type like `apfs`
+### Windows
+Download the proper file from the release section and save it in the C:\Windows folder if you want it in the system PATH.
+
+# Syscall Issues
+- Windows doesn't have `syscall.Statfs`, makes a kernel32.dll call instead.
+- Mac has `syscall.Statfs_t.Fstypename` but linux and windows doesn't. It returns the partition type like `apfs`, currently the app just returns a blank string for filesystem.
