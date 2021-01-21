@@ -24,30 +24,36 @@ a simple command line tool that checks the root of the system to see if it has 1
 
 ### Linux 64-bit
 ```
-wget https://github.com/szazeski/checkfreespace/releases/download/v0.1/checkfreespace-linux-64 && chmod +x checkfreespace-linux-64 && sudo mv checkfreespace-linux-64 /usr/bin/checkfreespace 
+wget -O checkfreespace https://get.checkcli.com/checkfreespace/linux/64 && chmod +x checkfreespace && sudo mv checkfreespace /usr/bin/checkfreespace 
 ```
 
 ### Linux 32-bit
 ```
-wget https://github.com/szazeski/checkfreespace/releases/download/v0.1/checkfreespace-linux-32 && chmod +x checkfreespace-linux-32 && sudo mv checkfreespace-linux-32 /usr/bin/checkfreespace 
+wget -O checkfreespace https://get.checkcli.com/checkfreespace/linux/32 && chmod +x checkfreespace && sudo mv checkfreespace /usr/bin/checkfreespace 
 ```
 
-### Linux ARM / ARM64
+### Linux ARM64
 ```
-wget https://github.com/szazeski/checkfreespace/releases/download/v0.1/checkfreespace-linux-arm && chmod +x checkfreespace-linux-arm && sudo mv checkfreespace-linux-arm /usr/bin/checkfreespace 
+wget -O checkfreespace https://get.checkcli.com/checkfreespace/linux/arm64 && chmod +x checkfreespace && sudo mv checkfreespace /usr/bin/checkfreespace 
+```
+
+### Linux ARM
+```
+wget -O checkfreespace https://get.checkcli.com/checkfreespace/linux/arm && chmod +x checkfreespace && sudo mv checkfreespace /usr/bin/checkfreespace 
 ```
 
 ### Mac Intel 64-bit
 (the app isn't signed yet, so run the app in finder to accept the Gatekeeper dialog by right clicking on it and selecting open)
 ```
-wget https://github.com/szazeski/checkfreespace/releases/download/v0.1/checkfreespace-mac && chmod +x checkfreespace-mac && sudo mv checkfreespace-mac /usr/bin/checkfreespace 
+curl -O -L https://github.com/szazeski/checkfreespace/releases/download/v0.1/checkfreespace-darwin && chmod +x checkfreespace-darwin
 ```
+Right click and open the app to approve gatekeeper for an unsigned app, then `mv checkfreespace-darwin /usr/local/bin/checkfreespace`
 
 ### Mac ARM
 (currently facing build issues)
 
 ### Windows
-Download the proper file from the release section and save it in the C:\Windows folder if you want it in the system PATH.
+Download the proper file from the release section and save it in the `C:\Windows` folder if you want it in the system PATH.
 
 # Syscall Issues
 - Windows doesn't have `syscall.Statfs`, makes a kernel32.dll call instead.
