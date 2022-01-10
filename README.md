@@ -37,9 +37,9 @@ a simple command line tool that checks the root of the system to see if it has 1
 ### Mac Intel 64-bit
 (the app isn't signed yet, so run the app in finder to accept the Gatekeeper dialog by right clicking on it and selecting open)
 
-`curl -O -L https://github.com/szazeski/checkfreespace/releases/download/v0.1/checkfreespace-darwin && chmod +x checkfreespace-darwin`
+`curl -O -L https://github.com/szazeski/checkfreespace/releases/download/v0.1/checkfreespace-darwin-amd64 && chmod +x checkfreespace-darwin-amd64`
 
-Right click and open the app to approve gatekeeper for an unsigned app, then `mv checkfreespace-darwin /usr/local/bin/checkfreespace`
+Right click and open the app to approve gatekeeper for an unsigned app, then `mv checkfreespace-darwin-amd64 /usr/local/bin/checkfreespace`
 
 ### Mac ARM
 (currently facing build issues)
