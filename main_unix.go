@@ -1,3 +1,4 @@
+//go:build !windows
 // +build !windows
 
 package main
@@ -10,11 +11,14 @@ import (
 
 const DISK_PATH = "/"
 
-func getFilesystemStats() (output filesystemStats) {
+func getFilesystemStats(path string) (output filesystemStats) {
 
+	if path == "" {
+		path = DISK_PATH
+	}
 	// this only works on linux / mac
 	syscallResult := syscall.Statfs_t{}
-	err := syscall.Statfs(DISK_PATH, &syscallResult)
+	err := syscall.Statfs(path, &syscallResult)
 	if err != nil {
 		fmt.Println("Unable to get Filesystem data", err)
 		syscall.Exit(1)

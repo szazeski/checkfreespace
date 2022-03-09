@@ -10,7 +10,11 @@ import (
 const DISK_PATH = "C:"
 
 // Windows doesn't have the syscall that linux and mac have, so we will patch in the kernel32.dll
-func getFilesystemStats() (output filesystemStats) {
+func getFilesystemStats(path string) (output filesystemStats) {
+	if path == "" {
+		path = DISK_PATH
+	}
+
 	kernel32, err := syscall.LoadLibrary("Kernel32.dll")
 	if err != nil {
 		fmt.Println("Unable to load kernel32.dll:", err)
@@ -28,7 +32,7 @@ func getFilesystemStats() (output filesystemStats) {
 	totalNumberOfFreeBytes := int64(0)
 
 	syscall.Syscall6(uintptr(GetDiskFreeSpaceEx), 4,
-		uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr(DISK_PATH))),
+		uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr(path))),
 		uintptr(unsafe.Pointer(&freeBytesAvailable)),
 		uintptr(unsafe.Pointer(&totalNumberOfBytes)),
 		uintptr(unsafe.Pointer(&totalNumberOfFreeBytes)), 0, 0)

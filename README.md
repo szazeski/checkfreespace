@@ -20,6 +20,8 @@ a simple command line tool that checks the root of the system to see if it has 1
  `-json` converts output to json format:
 `{"Filesystem":"","TotalGb":227,"FreeGb":149,"FreePercentage":65.63876651982379,"Hostname":"docker","Status":"[PASS] Disk OK","Passed":true}`
 
+ `-path /` optionally overrides the default path to check free space on such as `/mnt/usbdrive` or `D:`
+
 ## Installation
 
 ### Linux 64-bit
@@ -37,12 +39,17 @@ a simple command line tool that checks the root of the system to see if it has 1
 ### Mac Intel 64-bit
 (the app isn't signed yet, so run the app in finder to accept the Gatekeeper dialog by right clicking on it and selecting open)
 
-`curl -O -L https://github.com/szazeski/checkfreespace/releases/download/v0.1/checkfreespace-darwin-amd64 && chmod +x checkfreespace-darwin-amd64`
+`curl -O -L https://github.com/szazeski/checkfreespace/releases/download/v1.0.0/checkfreespace-darwin-amd64 && chmod +x checkfreespace-darwin-amd64`
 
 Right click and open the app to approve gatekeeper for an unsigned app, then `mv checkfreespace-darwin-amd64 /usr/local/bin/checkfreespace`
 
 ### Mac ARM
-(currently facing build issues)
+(the app isn't signed yet, so run the app in finder to accept the Gatekeeper dialog by right clicking on it and selecting open)
+
+`curl -O -L https://github.com/szazeski/checkfreespace/releases/download/v1.0.0/checkfreespace-darwin-arm64 && chmod +x checkfreespace-darwin-arm64`
+
+Right click and open the app to approve gatekeeper for an unsigned app, then `mv checkfreespace-darwin-arm64 /usr/local/bin/checkfreespace`
+
 
 ### Windows
 Download the proper file from the release section and save it in the `C:\Windows` folder if you want it in the system PATH.
