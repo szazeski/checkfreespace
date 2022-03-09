@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
-
 # from https://www.digitalocean.com/community/tutorials/how-to-build-go-executables-for-multiple-platforms-on-ubuntu-16-04
 
-package="checkfreespace"
+package="github.com/szazeski/checkfreespace"
 package_split=(${package//\// })
-package_name=${package_split[-1]}
+package_name="checkfreespace"
 
-platforms=("windows/amd64" "windows/386" "windows/arm" "darwin/amd64" "linux/amd64" "linux/386" "linux/arm64" "linux/arm")
+echo $package_name
+
+platforms=("windows/amd64" "windows/386" "windows/arm" "darwin/amd64" "darwin/arm64" "linux/amd64" "linux/386" "linux/arm64" "linux/arm")
 
 #  go tool dist list | column -c 75 | column -t
 #aix/ppc64        freebsd/amd64   linux/mipsle   openbsd/386
@@ -30,6 +31,7 @@ do
     if [ $GOOS = "windows" ]; then
         output_name+='.exe'
     fi
+    echo $output_name
 
     env GOOS=$GOOS GOARCH=$GOARCH go build -o $output_name $package
     if [ $? -ne 0 ]; then
