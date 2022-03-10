@@ -52,7 +52,7 @@ Right click and open the app to approve gatekeeper for an unsigned app, then `mv
 
 
 ### Windows
-Download the proper file from the release section and save it in the `C:\Windows` folder if you want it in the system PATH.
+[Download](https://github.com/szazeski/checkfreespace/releases) the proper file from the release section and save it in the `C:\Windows` folder if you want it in the system PATH.
 
 # Syscall Issues
 - Windows doesn't have `syscall.Statfs`, makes a kernel32.dll call instead.
