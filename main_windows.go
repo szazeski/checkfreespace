@@ -38,10 +38,11 @@ func getFilesystemStats(path string) (output filesystemStats) {
 		uintptr(unsafe.Pointer(&totalNumberOfFreeBytes)), 0, 0)
 
 	output.Total = float64(totalNumberOfBytes / GB)
-	output.Free = float64(totalNumberOfFreeBytes / GB)
+	output.Free = roundOneDecimal(float64(totalNumberOfFreeBytes/MB) / 1024)
 	output.Percent = output.Free / output.Total * 100
 	output.Filesystem = ""
 	output.Hostname, _ = os.Hostname()
+	output.Path = path
 
 	return
 }

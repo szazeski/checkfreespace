@@ -4,11 +4,13 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"math"
 	"syscall"
 )
 
-const VERSION = "v1.0.0 2022-03-08"
-const GB = 1024 * 1024 * 1024
+const VERSION = "v1.0.1 2022-03-18"
+const GB = 1024 * MB
+const MB = 1024 * 1024
 
 var pathToCheckFreespace = ""
 var JSON_OUTPUT = false
@@ -23,6 +25,7 @@ type filesystemStats struct {
 	Hostname   string  `json:"Hostname"`
 	Status     string  `json:"Status"`
 	Passed     bool    `json:"Passed"`
+	Path       string  `json:"Path"`
 }
 
 func main() {
@@ -67,7 +70,7 @@ func displayOutput(fs filesystemStats) {
 		}
 		fmt.Println(string(jsonBytes))
 	} else {
-		fmt.Println(DISK_PATH, "on", fs.Hostname)
+		fmt.Println(fs.Path, "on", fs.Hostname)
 		fmt.Println(" Free:   ", fs.Free, "GB /", fs.Total, "GB")
 		fmt.Printf(" Percent: %.2f%%\n", fs.Percent)
 		fmt.Println(fs.Status)
@@ -82,4 +85,8 @@ func convertToString(input [16]int8) (output string) {
 		output += string(byte(input[i]))
 	}
 	return
+}
+
+func roundOneDecimal(input float64) float64 {
+	return math.Round(input*10) / 10
 }
