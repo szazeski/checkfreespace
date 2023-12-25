@@ -34,7 +34,7 @@ archives:
         format: zip
 
 brews:
-  - name: sedplus
+  - name: checkfreespace
 
     repository:
       owner: szazeski
