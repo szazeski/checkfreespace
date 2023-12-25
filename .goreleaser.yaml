@@ -19,7 +19,7 @@ checksum:
   name_template: 'checksums.txt'
 
 archives:
-  - id: sedplus
+  - id: checkfreespace
     name_template: >-
       {{- .ProjectName }}_
       {{- .Version }}_
