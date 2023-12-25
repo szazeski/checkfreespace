@@ -55,7 +55,7 @@ brews:
     folder: Formula
 
     homepage: "https://checkcli.com/checkfreespace/"
-    description: "Simple tool to check free space on a drive.
+    description: "Simple tool to check free space on a drive."
     license: "MIT"
 
     test: |
