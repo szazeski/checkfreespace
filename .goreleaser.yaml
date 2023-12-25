@@ -1,0 +1,62 @@
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - 386
+      - amd64
+      - arm64
+
+checksum:
+  name_template: 'checksums.txt'
+
+archives:
+  - id: sedplus
+    name_template: >-
+      {{- .ProjectName }}_
+      {{- .Version }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end -}}
+
+    format_overrides:
+      - goos: windows
+        format: zip
+
+brews:
+  - name: sedplus
+
+    repository:
+      owner: szazeski
+      name: homebrew-tap
+      branch: main
+
+    url_template: "https://github.com/szazeski/checkfreespace/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
+
+    commit_author:
+      name: goreleaserbot
+      email: goreleaser@zazeski.com
+
+    # The project name and current git tag are used in the format string.
+    commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
+
+    # Folder inside the repository to put the formula.
+    # Default is the root folder.
+    folder: Formula
+
+    homepage: "https://checkcli.com/checkfreespace/"
+    description: "Simple tool to check free space on a drive.
+    license: "MIT"
+
+    test: |
+      system "#{bin}/checkfreespace"
