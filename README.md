@@ -9,6 +9,15 @@ a simple command line tool that checks the root of the system to see if it has 1
 [PASS] Disk OK
 ```
 
+`checkfreespace -gb 50`
+```
+/ on M1.lan
+ Free:    24.6 GB / 228 GB
+ Percent: 10.79%
+[FAIL] Free disk space under 50.0GB
+```
+(exit code 2)
+
 ## Options
 
  `-help` gets you the available options and version
@@ -24,35 +33,21 @@ a simple command line tool that checks the root of the system to see if it has 1
 
 ## Installation
 
-### Linux 64-bit
-`wget -O checkfreespace https://get.checkcli.com/checkfreespace/linux/64 && chmod +x checkfreespace && sudo mv checkfreespace /usr/bin/checkfreespace`
+### Mac Homebrew
 
-### Linux 32-bit
-`wget -O checkfreespace https://get.checkcli.com/checkfreespace/linux/32 && chmod +x checkfreespace && sudo mv checkfreespace /usr/bin/checkfreespace`
+`brew install szazeski/tap/checkfreespace`
 
-### Linux ARM64
-`wget -O checkfreespace https://get.checkcli.com/checkfreespace/linux/arm64 && chmod +x checkfreespace && sudo mv checkfreespace /usr/bin/checkfreespace`
+### Linux (and mac too)
 
-### Linux ARM
-`wget -O checkfreespace https://get.checkcli.com/checkfreespace/linux/arm && chmod +x checkfreespace && sudo mv checkfreespace /usr/bin/checkfreespace`
-
-### Mac Intel 64-bit
-(the app isn't signed yet, so run the app in finder to accept the Gatekeeper dialog by right clicking on it and selecting open)
-
-`curl -O -L https://github.com/szazeski/checkfreespace/releases/download/v1.0.0/checkfreespace-darwin-amd64 && chmod +x checkfreespace-darwin-amd64`
-
-Right click and open the app to approve gatekeeper for an unsigned app, then `mv checkfreespace-darwin-amd64 /usr/local/bin/checkfreespace`
-
-### Mac ARM
-(the app isn't signed yet, so run the app in finder to accept the Gatekeeper dialog by right clicking on it and selecting open)
-
-`curl -O -L https://github.com/szazeski/checkfreespace/releases/download/v1.0.0/checkfreespace-darwin-arm64 && chmod +x checkfreespace-darwin-arm64`
-
-Right click and open the app to approve gatekeeper for an unsigned app, then `mv checkfreespace-darwin-arm64 /usr/local/bin/checkfreespace`
-
+```
+wget https://github.com/szazeski/checkfreespace/releases/download/v0.1.0/checkfreespace_1.0.2_$(uname -s)_$(uname -m).tar.gz -O checkfreespace.tar.gz && tar -xf checkfreespace.tar.gz && chmod +x checkfreespace && sudo mv checkfreespace /usr/bin/
+```
 
 ### Windows
-[Download](https://github.com/szazeski/checkfreespace/releases) the proper file from the release section and save it in the `C:\Windows` folder if you want it in the system PATH.
+
+```
+Invoke-WebRequest https://github.com/szazeski/checkssl/releases/download/v0.5.0/checkfreespace_1.0.2_Windows_x86_64.zip -outfile checkfreespace.zip; Expand-Archive checkfreespace.zip; echo "if you want, move the file to a PATH directory like WINDOWS folder"
+```
 
 # Syscall Issues
 - Windows doesn't have `syscall.Statfs`, makes a kernel32.dll call instead.

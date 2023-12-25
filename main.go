@@ -8,7 +8,7 @@ import (
 	"syscall"
 )
 
-const VERSION = "v1.0.1 2022-03-18"
+const VERSION = "v1.0.2 2023-12-24"
 const GB = 1024 * MB
 const MB = 1024 * 1024
 
@@ -75,16 +75,6 @@ func displayOutput(fs filesystemStats) {
 		fmt.Printf(" Percent: %.2f%%\n", fs.Percent)
 		fmt.Println(fs.Status)
 	}
-}
-
-func convertToString(input [16]int8) (output string) {
-	for i := range input {
-		if input[i] == 0 {
-			return
-		}
-		output += string(byte(input[i]))
-	}
-	return
 }
 
 func roundOneDecimal(input float64) float64 {
