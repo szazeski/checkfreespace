@@ -8,14 +8,18 @@ import (
 	"syscall"
 )
 
-const VERSION = "v1.0.2 2023-12-24"
+const VERSION = "v1.0.3 2024-01-13"
 const GB = 1024 * MB
 const MB = 1024 * 1024
+const TERMINAL_COLOR_RED = "\033[41m"
+const TERMINAL_COLOR_GREEN = "\033[42m"
+const TERMINAL_COLOR_RESET = "\033[0m"
 
 var pathToCheckFreespace = ""
 var JSON_OUTPUT = false
 var ERROR_IF_UNDER_PERCENT = 0.0
 var ERROR_IF_UNDER_GB = 0.0
+var NO_COLOR = false
 
 type filesystemStats struct {
 	Filesystem string  `json:"Filesystem"`
@@ -44,7 +48,7 @@ func main() {
 	}
 
 	displayOutput(fs)
-	if fs.Passed == false {
+	if !fs.Passed {
 		syscall.Exit(2)
 	}
 }
@@ -55,6 +59,7 @@ func parseCommandLineFlags() {
 	flag.Float64Var(&ERROR_IF_UNDER_PERCENT, "percent", 10, "a number like 2.5 that will trigger an alert if free space is under 2.5 percent")
 	flag.Float64Var(&ERROR_IF_UNDER_GB, "gb", 0, "a number like 1.2 that will trigger an alert if free space is less than 1.2GB")
 	flag.StringVar(&pathToCheckFreespace, "path", "", "optionally sets the path to check for free space (ng /mnt/usbdrive or D: )")
+	flag.BoolVar(&NO_COLOR, "nocolor", false, "do not apply terminal color")
 	flag.Parse()
 	if *showVersion {
 		fmt.Println(VERSION)
@@ -73,7 +78,18 @@ func displayOutput(fs filesystemStats) {
 		fmt.Println(fs.Path, "on", fs.Hostname)
 		fmt.Println(" Free:   ", fs.Free, "GB /", fs.Total, "GB")
 		fmt.Printf(" Percent: %.2f%%\n", fs.Percent)
-		fmt.Println(fs.Status)
+
+		colorStart := ""
+		colorEnd := ""
+		if !NO_COLOR {
+			if fs.Passed {
+				colorStart = TERMINAL_COLOR_GREEN
+			} else {
+				colorStart = TERMINAL_COLOR_RED
+			}
+			colorEnd = TERMINAL_COLOR_RESET
+		}
+		fmt.Println(colorStart, fs.Status, colorEnd)
 	}
 }
 
