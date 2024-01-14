@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e #exit on first error
+
+echo "Running unit tests and coverage..."
+go test ./... -coverprofile=coverage.out
