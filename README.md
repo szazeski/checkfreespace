@@ -41,13 +41,13 @@ a simple command line tool that checks the root of the system to see if it has 1
 ### Linux (and mac too)
 
 ```
-wget https://github.com/szazeski/checkfreespace/releases/download/v1.0.2/checkfreespace_1.0.2_$(uname -s)_$(uname -m).tar.gz -O checkfreespace.tar.gz && tar -xf checkfreespace.tar.gz && chmod +x checkfreespace && sudo mv checkfreespace /usr/bin/
+wget https://github.com/szazeski/checkfreespace/releases/download/v1.0.3/checkfreespace_1.0.3_$(uname -s)_$(uname -m).tar.gz -O checkfreespace.tar.gz && tar -xf checkfreespace.tar.gz && chmod +x checkfreespace && sudo mv checkfreespace /usr/bin/
 ```
 
 ### Windows (Powershell)
 
 ```
-Invoke-WebRequest https://github.com/szazeski/checkfreespace/releases/download/v1.0.2/checkfreespace_1.0.2_Windows_x86_64.zip -outfile checkfreespace.zip; Expand-Archive checkfreespace.zip; echo "if you want, move the file to a PATH directory like WINDOWS folder"
+Invoke-WebRequest https://github.com/szazeski/checkfreespace/releases/download/v1.0.3/checkfreespace_1.0.3_Windows_x86_64.zip -outfile checkfreespace.zip; Expand-Archive checkfreespace.zip; echo "if you want, move the file to a PATH directory like WINDOWS folder"
 ```
 
 then move to `C:\Windows\` or other PATH directory
